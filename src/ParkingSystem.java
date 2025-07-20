@@ -5,7 +5,7 @@ public class ParkingSystem {
         this.slot = new int[]{big, medium, small};
     }
 
-    public boolean addCar(int carType) {
+    public synchronized boolean addCar(int carType) {
         if (slot[carType - 1] > 0) {
             slot[carType - 1]--;
             return true;
