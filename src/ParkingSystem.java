@@ -1,15 +1,16 @@
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class ParkingSystem {
-    private final int[] slot;
+    private final AtomicInteger[] slot;
 
     public ParkingSystem(int big, int medium, int small) {
-        this.slot = new int[]{big, medium, small};
+        var bigLimit = new AtomicInteger(big);
+        var mediumLimit = new AtomicInteger(medium);
+        var smallLimit = new AtomicInteger(small);
+        this.slot = new AtomicInteger[]{bigLimit, mediumLimit, smallLimit};
     }
 
-    public synchronized boolean addCar(int carType) {
-        if (slot[carType - 1] > 0) {
-            slot[carType - 1]--;
-            return true;
-        }
-        return false;
+    public boolean addCar(int carType) {
+        return slot[carType - 1].decrementAndGet() >= 0;
     }
 }
