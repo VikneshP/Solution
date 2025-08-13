@@ -1,21 +1,30 @@
 public class PalindromeFinder {
 
     public static boolean isPalindrome(String input) {
-        var chars = input.toCharArray();
-        for (int left = 0, right = chars.length - 1; left != right; left++, right--) {
-            if (chars[left] != chars[right]) {
-                System.out.println("The input string is NOT a palindrome");
+        if (input == null || input.isBlank()) {
+            return false;
+        }
+        var left = 0;
+        var right = input.length() - 1;
+        while (left < right) {
+            if (input.charAt(left) != input.charAt(right)) {
                 return false;
             }
+            left++;
+            right--;
         }
-        System.out.println("The input string [ " + input + " ] is a palindrome");
         return true;
     }
 
     public static void main(String[] args) {
-        var inputData = "viknesh";
+        var inputData = "MADAM";
         var startTime = System.currentTimeMillis();
-        isPalindrome(inputData);
+        var result = isPalindrome(inputData);
+        if (result) {
+            System.out.println("The given input is a palindrome");
+        } else {
+            System.out.println("The given input is NOT a palindrome");
+        }
         System.out.println("Time taken to find the result: " + (System.currentTimeMillis() - startTime));
     }
 }
